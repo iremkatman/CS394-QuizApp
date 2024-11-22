@@ -1,5 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <color name="deepPurple">#512DA8</color>
+    <color name="lightPurple">#D1C4E9</color>
+    <color name="purple">#7E57C2</color>
+    <color name="darkPurple">#311B92</color>
+    <color name="white">#FFFFFF</color>
+    <color name="backgroundDark">#1E1E2C</color>
+    <color name="backgroundLight">#252836</color>
+    <color name="cardBackground">#3B3B4F</color>
+    <color name="highlightColor">#FF6584</color>
+    <color name="textPrimary">#FFFFFF</color>
+    <color name="textSecondary">#A0A3BD</color>
+    <color name="buttonEasy">#5D9CEC</color>
+    <color name="buttonMedium">#F6C90E</color>
+    <color name="buttonHard">#FF6565</color>
 </resources>
