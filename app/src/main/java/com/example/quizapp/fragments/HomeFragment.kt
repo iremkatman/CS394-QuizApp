@@ -17,7 +17,7 @@ class HomeFragment : Fragment() {
     ): View {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         val nickname = HomeFragmentArgs.fromBundle(requireArguments()).nickname
-        binding.welcomeMessage.text = "Welcome, $nickname!"
+        binding.tvWelcome.text = "Hi, $nickname"
 
         return binding.root
     }
