@@ -16,7 +16,7 @@
             android:id="@+id/tvWelcome"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Hi, John"
+            android:text="Hi, [Nickname]"
             android:textColor="@color/purple"
             android:textSize="24sp"
             android:textStyle="bold"
