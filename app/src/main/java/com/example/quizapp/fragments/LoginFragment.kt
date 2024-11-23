@@ -6,10 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.example.quizapp.R
 import androidx.navigation.fragment.findNavController
 import com.example.quizapp.databinding.FragmentLoginBinding
-import com.example.quizapp.R
-
 
 class LoginFragment : Fragment() {
 
@@ -26,6 +25,7 @@ class LoginFragment : Fragment() {
             val password = binding.passwordEditText.text.toString()
 
             if (nickname.isNotEmpty() && password.isNotEmpty()) {
+                // HomeFragment'e nickname ile geçiş
                 val action = LoginFragmentDirections.actionLoginFragmentToHomeFragment(nickname)
                 findNavController().navigate(action)
             } else {

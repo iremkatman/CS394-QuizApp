@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     app:startDestination="@id/loginFragment">
 
+    <!-- Login Fragment -->
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.example.quizapp.fragments.LoginFragment"
@@ -17,25 +18,40 @@
             app:destination="@id/registerFragment" />
     </fragment>
 
+    <!-- Register Fragment -->
     <fragment
         android:id="@+id/registerFragment"
         android:name="com.example.quizapp.fragments.RegisterFragment"
         android:label="Register"
         tools:layout="@layout/fragment_register">
-
         <action
             android:id="@+id/action_registerFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
     </fragment>
 
+    <!-- Home Fragment -->
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.example.quizapp.fragments.HomeFragment"
         android:label="Home"
         tools:layout="@layout/fragment_home">
-
         <argument
             android:name="nickname"
             app:argType="string" />
+        <action
+            android:id="@+id/action_homeFragment_to_categoryDetailFragment"
+            app:destination="@id/categoryDetailFragment" />
     </fragment>
+
+    <!-- Category Detail Fragment -->
+    <fragment
+        android:id="@+id/categoryDetailFragment"
+        android:name="com.example.quizapp.fragments.CategoryDetailFragment"
+        android:label="Category Detail"
+        tools:layout="@layout/fragment_category_detail">
+        <argument
+            android:name="categoryId"
+            app:argType="integer" />
+    </fragment>
+
 </navigation>
