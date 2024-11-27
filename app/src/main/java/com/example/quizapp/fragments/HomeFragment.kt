@@ -51,14 +51,14 @@ class HomeFragment : Fragment() {
         val adapter = CategoryAdapter(categoryList) { category ->
             val action =
                 HomeFragmentDirections.actionHomeFragmentToCategoryDetailFragment(category.id)
-            binding.root.findNavController().navigate(action)
+            findNavController().navigate(action)
         }
         binding.rvCategories.layoutManager = LinearLayoutManager(requireContext())
         binding.rvCategories.adapter = adapter
 
-        // Bind BottomNavigationView to NavController
-        val navController = findNavController()
+        // BottomNavigationView'i NavController ile bağlama
         val bottomNavigationView = binding.root.findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+        val navController = findNavController()
         bottomNavigationView.setupWithNavController(navController)
 
         return binding.root

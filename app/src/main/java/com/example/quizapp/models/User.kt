@@ -1,4 +1,6 @@
 package com.example.quizapp.models
 
-class User {
-}
+data class User(
+    val name: String,
+    val score: Int
+)
