@@ -1,4 +1,7 @@
 package com.example.quizapp.models
 
-class Question {
-}
+data class Question(
+    val text: String,
+    val options: List<String>,
+    val correctAnswer: String
+)

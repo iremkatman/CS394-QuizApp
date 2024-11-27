@@ -9,9 +9,9 @@
         android:icon="@drawable/img_1"
         android:title="Ana Sayfa" />
     <item
-        android:id="@+id/loginFragment"
+        android:id="@+id/leaderboardFragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:icon="@drawable/img_2"
-        android:title="Profil" />
+        android:title="LeaderBoard" />
 </menu>

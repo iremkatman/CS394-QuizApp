@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.example.quizapp.databinding.FragmentCategoryDetailBinding
 
 class CategoryDetailFragment : Fragment() {
@@ -19,6 +20,12 @@ class CategoryDetailFragment : Fragment() {
         val categoryId = arguments?.getInt("categoryId") ?: 0
 
         binding.textViewCategoryId.text = "Category ID: $categoryId"
+
+        binding.btnEasy.setOnClickListener {
+            val action =
+                CategoryDetailFragmentDirections.actionCategoryDetailFragmentToQuizFragment()
+            findNavController().navigate(action)
+        }
 
         return binding.root
     }
