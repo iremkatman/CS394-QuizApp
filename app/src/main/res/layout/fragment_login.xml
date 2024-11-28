@@ -1,16 +1,20 @@
-<?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <!-- Gerekirse ViewModel burada tanımlanabilir -->
+        <variable
+            name="viewModel"
+            type="com.example.quizapp.viewmodels.LoginViewModel" />
+        <variable
+            name="fragment"
+            type="com.example.quizapp.fragments.LoginFragment" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/loginFragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
+        android:layout_height="match_parent"
+        tools:context=".fragments.LoginFragment">
         <TextView
             android:id="@+id/appTitle"
             android:layout_width="wrap_content"
@@ -23,27 +27,27 @@
             app:layout_constraintHorizontal_bias="0.487"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
         <EditText
             android:id="@+id/nicknameEditText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="312dp"
             android:hint="Nickname"
+            android:text="@={viewModel.nickname}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/appTitle"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintWidth_percent="0.8" />
 
         <EditText
             android:id="@+id/passwordEditText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
             android:hint="Password"
             android:inputType="textPassword"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:text="@={viewModel.password}"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/nicknameEditText"
             app:layout_constraintWidth_percent="0.8" />
 
@@ -51,22 +55,20 @@
             android:id="@+id/loginButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:onClick="@{() -> viewModel.login()}"
             android:text="Login"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/passwordEditText" />
-
         <TextView
             android:id="@+id/registerLink"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:onClick="@{() -> fragment.navigateToRegister()}"
             android:text="Don't have an account? Register"
             android:textColor="@android:color/holo_blue_dark"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/loginButton" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
