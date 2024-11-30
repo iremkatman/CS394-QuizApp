@@ -7,10 +7,14 @@ import com.example.quizapp.models.Question
 
 class QuizViewModel : ViewModel() {
 
-    private val _currentQuestion = MutableLiveData<Question>()
-    val currentQuestion: LiveData<Question> get() = _currentQuestion
+    private val _currentQuestion = MutableLiveData<Question?>()
+    val currentQuestion: LiveData<Question?> get() = _currentQuestion
+
+    private val _isAnswered = MutableLiveData<Boolean>()
+    val isAnswered: LiveData<Boolean> get() = _isAnswered
 
     private var questionIndex = 0
+    private var correctAnswers = 0
 
     private val questions = listOf(
         Question(
@@ -37,13 +41,32 @@ class QuizViewModel : ViewModel() {
     fun loadQuestion() {
         if (questionIndex < questions.size) {
             _currentQuestion.value = questions[questionIndex]
+            _isAnswered.value = false
         } else {
-            _currentQuestion.value = null // Tüm sorular bitti
+            _currentQuestion.value = null
         }
     }
 
     fun nextQuestion() {
         questionIndex++
         loadQuestion()
+    }
+
+    fun checkAnswer(selectedOption: String): Boolean {
+        if (_isAnswered.value == true) return false
+        val isCorrect = _currentQuestion.value?.correctAnswer == selectedOption
+        if (isCorrect) {
+            correctAnswers++
+        }
+        _isAnswered.value = true
+        return isCorrect
+    }
+
+    fun getCorrectAnswersCount(): Int {
+        return correctAnswers
+    }
+
+    fun getTotalQuestionsCount(): Int {
+        return questions.size
     }
 }
