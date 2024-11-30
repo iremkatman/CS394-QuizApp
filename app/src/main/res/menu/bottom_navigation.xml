@@ -4,14 +4,10 @@
 
     <item
         android:id="@+id/homeFragment"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:icon="@drawable/img_1"
-        android:title="Ana Sayfa" />
+        android:icon="@drawable/img_3"
+        android:title="" />
     <item
         android:id="@+id/leaderboardFragment"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:icon="@drawable/img_2"
-        android:title="LeaderBoard" />
+        android:icon="@drawable/img_4"
+        android:title="" />
 </menu>

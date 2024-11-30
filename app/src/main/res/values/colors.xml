@@ -17,4 +17,8 @@
     <color name="green">#4CAF50</color>
     <color name="red">#F44336</color>
     <color name="default_button">#E0E0E0</color>
+    <color name="selected_color">#FF6200EE</color>
+    <color name="unselected_color">#B0BEC5</color>
+    <color name="background_color">#FFFFFF</color>
+
 </resources>
