@@ -9,31 +9,30 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="16dp"
-        android:background="@color/white">
+        android:layout_height="1531dp"
+        android:background="@color/white"
+        android:padding="16dp">
 
         <TextView
             android:id="@+id/textViewCategoryId"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="16dp"
             android:text="Category ID"
             android:textSize="18sp"
-            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_margin="16dp" />
-
+            app:layout_constraintTop_toTopOf="parent" />
 
 
         <ImageView
             android:id="@+id/ivCategoryImage"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:layout_marginTop="48dp"
+            android:layout_marginTop="232dp"
             android:background="@color/white"
             android:scaleType="centerCrop"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.487"
+            app:layout_constraintHorizontal_bias="0.499"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:src="@drawable/img_2" />
@@ -42,52 +41,67 @@
             android:id="@+id/tvCategoryTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:text="Category Name"
+            android:textColor="@color/darkPurple"
             android:textSize="24sp"
             android:textStyle="bold"
-            android:textColor="@color/darkPurple"
-            app:layout_constraintTop_toBottomOf="@id/ivCategoryImage"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="16dp" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ivCategoryImage" />
 
         <Button
             android:id="@+id/btnEasy"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Easy"
+            android:layout_marginTop="16dp"
             android:backgroundTint="@color/lightPurple"
-            android:textColor="@color/white"
             android:fontFamily="sans-serif-medium"
-            app:layout_constraintTop_toBottomOf="@id/tvCategoryTitle"
-            app:layout_constraintStart_toStartOf="parent"
+            android:text="Easy"
+            android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="16dp" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvCategoryTitle" />
 
         <Button
             android:id="@+id/btnMedium"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Medium"
+            android:layout_marginTop="16dp"
             android:backgroundTint="@color/purple"
-            android:textColor="@color/white"
             android:fontFamily="sans-serif-medium"
-            app:layout_constraintTop_toBottomOf="@id/btnEasy"
-            app:layout_constraintStart_toStartOf="parent"
+            android:text="Medium"
+            android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="16dp" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnEasy" />
 
         <Button
             android:id="@+id/btnHard"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Hard"
+            android:layout_marginTop="16dp"
             android:backgroundTint="@color/darkPurple"
-            android:textColor="@color/white"
             android:fontFamily="sans-serif-medium"
-            app:layout_constraintTop_toBottomOf="@id/btnMedium"
-            app:layout_constraintStart_toStartOf="parent"
+            android:text="Hard"
+            android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="16dp" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnMedium" />
+
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/lottieAnimation"
+            android:layout_width="878dp"
+            android:layout_height="351dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/sports" />
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
