@@ -15,18 +15,20 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".fragments.LoginFragment">
+
         <TextView
             android:id="@+id/appTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="200dp"
+            android:layout_marginTop="264dp"
             android:text="Quiz App"
             android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.487"
+            app:layout_constraintHorizontal_bias="0.493"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
         <EditText
             android:id="@+id/nicknameEditText"
             android:layout_width="0dp"
@@ -46,8 +48,8 @@
             android:hint="Password"
             android:inputType="textPassword"
             android:text="@={viewModel.password}"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/nicknameEditText"
             app:layout_constraintWidth_percent="0.8" />
 
@@ -57,9 +59,10 @@
             android:layout_height="wrap_content"
             android:onClick="@{() -> viewModel.login()}"
             android:text="Login"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/passwordEditText" />
+
         <TextView
             android:id="@+id/registerLink"
             android:layout_width="wrap_content"
@@ -67,8 +70,23 @@
             android:onClick="@{() -> fragment.navigateToRegister()}"
             android:text="Don't have an account? Register"
             android:textColor="@android:color/holo_blue_dark"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/loginButton" />
+
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/lottieAnimation"
+            android:layout_width="406dp"
+            android:layout_height="220dp"
+            android:layout_marginTop="32dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/login_animation" />
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
