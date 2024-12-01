@@ -31,6 +31,16 @@ class CategoryDetailFragment : Fragment() {
         when (categoryName) {
             "Sports" -> lottieAnimationView.setAnimation(R.raw.sports) // sports.json
              "Math" -> lottieAnimationView.setAnimation(R.raw.math)
+            "History" -> lottieAnimationView.setAnimation(R.raw.history)
+            "Science" -> lottieAnimationView.setAnimation(R.raw.science)
+            "Geography" -> lottieAnimationView.setAnimation(R.raw.geography)
+            "Music" -> lottieAnimationView.setAnimation(R.raw.music)
+            "Art" -> lottieAnimationView.setAnimation(R.raw.art )
+            "Technology" -> lottieAnimationView.setAnimation(R.raw.technology)
+            "Literature" -> lottieAnimationView.setAnimation(R.raw.literature)
+            "Physics" -> lottieAnimationView.setAnimation(R.raw.physics)
+            "Biology" -> lottieAnimationView.setAnimation(R.raw.biology)
+            "Chemistry" -> lottieAnimationView.setAnimation(R.raw.chemistry)
 
         }
 
