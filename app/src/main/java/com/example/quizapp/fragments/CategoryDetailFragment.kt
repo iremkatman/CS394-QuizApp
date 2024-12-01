@@ -17,8 +17,13 @@ class CategoryDetailFragment : Fragment() {
     ): View {
         binding = FragmentCategoryDetailBinding.inflate(inflater, container, false)
 
+
+
+        val categoryName = arguments?.getString("categoryName") ?: "Unknown Category"
         val categoryId = arguments?.getInt("categoryId") ?: 0
 
+
+        binding.tvCategoryTitle.text = categoryName
         binding.textViewCategoryId.visibility = View.GONE
 
 

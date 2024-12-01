@@ -50,7 +50,7 @@ class HomeFragment : Fragment() {
 
         val adapter = CategoryAdapter(categoryList) { category ->
             val action =
-                HomeFragmentDirections.actionHomeFragmentToCategoryDetailFragment(category.id)
+                HomeFragmentDirections.actionHomeFragmentToCategoryDetailFragment(category.id,category.name)
             findNavController().navigate(action)
         }
         binding.rvCategories.layoutManager = LinearLayoutManager(requireContext())
