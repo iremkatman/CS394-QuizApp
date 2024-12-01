@@ -19,7 +19,8 @@ class CategoryDetailFragment : Fragment() {
 
         val categoryId = arguments?.getInt("categoryId") ?: 0
 
-        binding.textViewCategoryId.text = "Category ID: $categoryId"
+        binding.textViewCategoryId.visibility = View.GONE
+
 
         binding.btnEasy.setOnClickListener {
             val action =
