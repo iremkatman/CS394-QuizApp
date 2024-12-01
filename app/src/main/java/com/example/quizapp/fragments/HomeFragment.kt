@@ -24,28 +24,28 @@ class HomeFragment : Fragment() {
     ): View {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
 
-        // Set nickname in the welcome message
+
         val nickname = arguments?.getString("nickname") ?: "Guest"
         binding.tvWelcome.text = "Hi, $nickname"
 
-        // Set ranking and points values
+
         binding.tvRankingValue.text = "348"
         binding.tvPointsValue.text = "1209"
 
-        // Create category list and set up RecyclerView
+
         val categoryList = listOf(
             Category(1, "Sports", 50, R.drawable.img_2),
-            Category(2, "Math", 40, R.drawable.img_2),
-            Category(3, "History", 30, R.drawable.img_2),
-            Category(4, "Science", 20, R.drawable.img_2),
-            Category(5, "Geography", 25, R.drawable.img_2),
-            Category(6, "Music", 35, R.drawable.img_2),
-            Category(7, "Art", 15, R.drawable.img_1),
-            Category(8, "Technology", 45, R.drawable.img_2),
-            Category(9, "Literature", 28, R.drawable.img_2),
-            Category(10, "Physics", 50, R.drawable.img_2),
-            Category(11, "Biology", 33, R.drawable.img_2),
-            Category(12, "Chemistry", 29, R.drawable.img_2)
+            Category(2, "Math", 40, R.drawable.img_5),
+            Category(3, "History", 30, R.drawable.img_6),
+            Category(4, "Science", 20, R.drawable.img_7),
+            Category(5, "Geography", 25, R.drawable.img_8),
+            Category(6, "Music", 35, R.drawable.img_9),
+            Category(7, "Art", 15, R.drawable.img_10),
+            Category(8, "Technology", 45, R.drawable.img_11),
+            Category(9, "Literature", 28, R.drawable.img_12),
+            Category(10, "Physics", 50, R.drawable.img_13),
+            Category(11, "Biology", 33, R.drawable.img_14),
+            Category(12, "Chemistry", 29, R.drawable.img_15)
         )
 
         val adapter = CategoryAdapter(categoryList) { category ->
@@ -56,7 +56,7 @@ class HomeFragment : Fragment() {
         binding.rvCategories.layoutManager = LinearLayoutManager(requireContext())
         binding.rvCategories.adapter = adapter
 
-        // BottomNavigationView'i NavController ile bağlama
+
         val bottomNavigationView = binding.root.findViewById<BottomNavigationView>(R.id.bottomNavigationView)
         val navController = findNavController()
         bottomNavigationView.setupWithNavController(navController)
