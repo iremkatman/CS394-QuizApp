@@ -61,6 +61,13 @@ class HomeFragment : Fragment() {
         val navController = findNavController()
         bottomNavigationView.setupWithNavController(navController)
 
+// profil simgesine tıklandığnda ne olacağı hakkında güncelleme
+        binding.ivProfileImage.setOnClickListener {
+            // Navigation Graph ile ProfileFragment'e yönlendirme
+            findNavController().navigate(R.id.profileFragment)
+        }
+
+
         return binding.root
     }
 }

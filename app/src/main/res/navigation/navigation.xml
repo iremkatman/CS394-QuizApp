@@ -44,7 +44,15 @@
         <action
             android:id="@+id/action_homeFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
     </fragment>
+
+
+
+
+
 
     <!-- Category Detail Fragment -->
     <fragment
@@ -63,12 +71,18 @@
             app:destination="@id/quizFragment" />
     </fragment>
 
+
+
+
     <!-- Leaderboard Fragment -->
     <fragment
         android:id="@+id/leaderboardFragment"
         android:name="com.example.quizapp.fragments.LeaderboardFragment"
         android:label="Leaderboard"
         tools:layout="@layout/fragment_leaderboard" />
+
+
+
 
     <!-- Quiz Fragment -->
     <fragment
@@ -87,6 +101,9 @@
                 app:argType="integer" />
         </action>
     </fragment>
+
+
+
 
     <!-- Results Fragment -->
     <fragment
@@ -108,5 +125,26 @@
             app:destination="@id/homeFragment" />
 
     </fragment>
+
+
+
+
+  <!-- Sevgili cs394 alan grup arakadaşlarıma Profil kısmını sürpriz yapıyorum -->
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.quizapp.fragments.ProfileFragment"
+        android:label="Profile"
+        tools:layout="@layout/fragment_profile">
+        <action
+            android:id="@+id/action_profileFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+
+
+
+
 
 </navigation>

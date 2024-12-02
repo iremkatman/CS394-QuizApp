@@ -1,0 +1,55 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <!-- Eğer ProfileFragment'te bir ViewModel kullanacaksanız buraya ekleyebilirsiniz -->
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".fragments.ProfileFragment">
+
+        <!-- Profil Başlığı -->
+        <TextView
+            android:id="@+id/tvProfileTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Profile"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="32dp" />
+
+        <!-- Çıkış Yap Butonu -->
+        <Button
+            android:id="@+id/btnLogout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Log Out"
+            app:layout_constraintTop_toBottomOf="@id/tvProfileTitle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="24dp" />
+
+
+
+        <!-- istersekkk bir profile animasyon denenecek -->
+        <!-- Animasyon (Opsiyonel) -->
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/profileLottieAnimation"
+            android:layout_width="300dp"
+            android:layout_height="200dp"
+            app:layout_constraintTop_toBottomOf="@id/btnLogout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="16dp"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
