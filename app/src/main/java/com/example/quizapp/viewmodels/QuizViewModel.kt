@@ -4,69 +4,69 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.quizapp.models.Question
-
+import com.example.quizapp.network.ApiResponse
+import com.example.quizapp.network.RetrofitClient
+import com.example.quizapp.network.QuizApi
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 class QuizViewModel : ViewModel() {
 
-    private val _currentQuestion = MutableLiveData<Question?>()
-    val currentQuestion: LiveData<Question?> get() = _currentQuestion
+    private val _questions = MutableLiveData<List<Question>>()
+    val questions: LiveData<List<Question>> get() = _questions
 
-    private val _isAnswered = MutableLiveData<Boolean>()
+    private val _currentQuestionIndex = MutableLiveData(0)
+    val currentQuestionIndex: LiveData<Int> get() = _currentQuestionIndex
+
+    private val _isAnswered = MutableLiveData(false)
     val isAnswered: LiveData<Boolean> get() = _isAnswered
 
-    private var questionIndex = 0
-    private var correctAnswers = 0
+    private val _isQuizFinished = MutableLiveData(false)
+    val isQuizFinished: LiveData<Boolean> get() = _isQuizFinished
 
-    private val questions = listOf(
-        Question(
-            text = "What is the capital of France?",
-            options = listOf("Paris", "London", "Berlin", "Madrid"),
-            correctAnswer = "Paris"
-        ),
-        Question(
-            text = "What is 2 + 2?",
-            options = listOf("3", "4", "5", "6"),
-            correctAnswer = "4"
-        ),
-        Question(
-            text = "Who wrote 'Hamlet'?",
-            options = listOf("Charles Dickens", "William Shakespeare", "Mark Twain", "J.K. Rowling"),
-            correctAnswer = "William Shakespeare"
-        )
-    )
+    private var correctAnswersCount = 0
 
-    init {
-        loadQuestion()
+    fun fetchQuestions(amount: Int, categoryId: Int, difficulty: String) {
+        val api = RetrofitClient.instance.create(QuizApi::class.java)
+        api.getQuestions(amount, categoryId, difficulty).enqueue(object : Callback<ApiResponse> {
+            override fun onResponse(call: Call<ApiResponse>, response: Response<ApiResponse>) {
+                _questions.value = response.body()?.results ?: emptyList()
+                _currentQuestionIndex.value = 0
+                correctAnswersCount = 0
+                _isQuizFinished.value = false
+            }
+
+            override fun onFailure(call: Call<ApiResponse>, t: Throwable) {
+            }
+        })
     }
 
-    fun loadQuestion() {
-        if (questionIndex < questions.size) {
-            _currentQuestion.value = questions[questionIndex]
-            _isAnswered.value = false
-        } else {
-            _currentQuestion.value = null
-        }
+    fun getCurrentQuestion(): Question? {
+        return _questions.value?.getOrNull(_currentQuestionIndex.value ?: 0)
     }
 
     fun nextQuestion() {
-        questionIndex++
-        loadQuestion()
-    }
-
-    fun checkAnswer(selectedOption: String): Boolean {
-        if (_isAnswered.value == true) return false
-        val isCorrect = _currentQuestion.value?.correctAnswer == selectedOption
-        if (isCorrect) {
-            correctAnswers++
+        if (_currentQuestionIndex.value != null) {
+            if (_currentQuestionIndex.value!! < (_questions.value?.size ?: 0) - 1) {
+                _currentQuestionIndex.value = _currentQuestionIndex.value!! + 1
+                _isAnswered.value = false
+            } else {
+                _isQuizFinished.value = true
+            }
         }
+    }
+
+    fun markAnswered(isCorrect: Boolean) {
+        if (isCorrect) correctAnswersCount++
         _isAnswered.value = true
-        return isCorrect
     }
 
-    fun getCorrectAnswersCount(): Int {
-        return correctAnswers
-    }
-
-    fun getTotalQuestionsCount(): Int {
-        return questions.size
+    fun getCorrectAnswersCount(): Int = correctAnswersCount
+    fun getTotalQuestionsCount(): Int = _questions.value?.size ?: 0
+    fun reset() {
+        _questions.value = emptyList()
+        _currentQuestionIndex.value = 0
+        _isQuizFinished.value = false
+        correctAnswersCount = 0
     }
 }

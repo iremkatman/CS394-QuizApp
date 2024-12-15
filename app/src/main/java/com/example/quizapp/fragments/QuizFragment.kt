@@ -4,91 +4,103 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.quizapp.R
 import com.example.quizapp.databinding.FragmentQuizBinding
-import com.example.quizapp.models.Question
 import com.example.quizapp.viewmodels.QuizViewModel
-import com.google.android.material.snackbar.Snackbar
 
 class QuizFragment : Fragment() {
-
     private lateinit var binding: FragmentQuizBinding
     private val viewModel: QuizViewModel by viewModels()
+    private var selectedOption: Button? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentQuizBinding.inflate(inflater, container, false)
-        binding.lifecycleOwner = viewLifecycleOwner
-        binding.viewModel = viewModel
 
+        val args = QuizFragmentArgs.fromBundle(requireArguments())
+        val categoryId = args.categoryId
+        val difficulty = args.difficulty
+
+        viewModel.fetchQuestions(5, categoryId, difficulty)
         setupObservers()
+
+        viewModel.questions.observe(viewLifecycleOwner) { questions ->
+            if (questions.isNotEmpty()) {
+                setupQuestionView()
+            }
+        }
+
+        binding.btnOption1.setOnClickListener { onOptionSelected(binding.btnOption1) }
+        binding.btnOption2.setOnClickListener { onOptionSelected(binding.btnOption2) }
+        binding.btnOption3.setOnClickListener { onOptionSelected(binding.btnOption3) }
+        binding.btnOption4.setOnClickListener { onOptionSelected(binding.btnOption4) }
 
         binding.btnNext.setOnClickListener {
             viewModel.nextQuestion()
+            resetOptionColors()
+            enableOptions(true)
+            setupQuestionView()
         }
 
         return binding.root
     }
 
-    private fun setupObservers() {
-        viewModel.currentQuestion.observe(viewLifecycleOwner) { question ->
-            if (question != null) {
-                setupQuestionView(question)
-            } else {
-                navigateToResults()
-            }
-        }
+    private fun setupQuestionView() {
+        val currentQuestion = viewModel.getCurrentQuestion()
+        binding.tvQuestion.text = currentQuestion?.text
+        val options = currentQuestion?.options ?: emptyList()
 
-        viewModel.isAnswered.observe(viewLifecycleOwner) { isAnswered ->
-            binding.btnNext.isEnabled = isAnswered
-        }
+        binding.btnOption1.text = options.getOrNull(0)
+        binding.btnOption2.text = options.getOrNull(1)
+        binding.btnOption3.text = options.getOrNull(2)
+        binding.btnOption4.text = options.getOrNull(3)
     }
 
-    private fun setupQuestionView(question: Question) {
-        binding.tvQuestion.text = question.text
+    private fun onOptionSelected(option: Button) {
+        val correctAnswer = viewModel.getCurrentQuestion()?.correctAnswer
+        val isCorrect = option.text == correctAnswer
 
-        val optionButtons = listOf(binding.btnOption1, binding.btnOption2, binding.btnOption3, binding.btnOption4)
-        for ((index, option) in question.options.withIndex()) {
-            val button = optionButtons[index]
-            button.text = option
-            button.visibility = View.VISIBLE
-            button.isEnabled = true
-            button.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.deepPurple))
-
-            button.setOnClickListener {
-                if (viewModel.isAnswered.value == true) return@setOnClickListener
-
-                val isCorrect = viewModel.checkAnswer(option)
-                if (isCorrect) {
-                    button.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.green)) // Correct: Green
-                } else {
-                    button.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.red)) // Incorrect: Red
-                    highlightCorrectAnswer(optionButtons, question.correctAnswer)
-                }
-                Snackbar.make(binding.root, if (isCorrect) "Correct!" else "Wrong!", Snackbar.LENGTH_SHORT).show()
-
-                optionButtons.forEach { it.isEnabled = false }
-            }
+        // Renk ayarları
+        if (isCorrect) {
+            option.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.green))
+        } else {
+            option.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.red))
+            highlightCorrectAnswer(correctAnswer)
         }
-        for (i in question.options.size until optionButtons.size) {
-            optionButtons[i].visibility = View.GONE // Hide unused buttons
-        }
+
+        viewModel.markAnswered(isCorrect)
+        enableOptions(false)
     }
 
-    private fun highlightCorrectAnswer(buttons: List<View>, correctAnswer: String) {
+    private fun highlightCorrectAnswer(correctAnswer: String?) {
+        val buttons = listOf(binding.btnOption1, binding.btnOption2, binding.btnOption3, binding.btnOption4)
         buttons.forEach { button ->
-            if ((button as? android.widget.Button)?.text == correctAnswer) {
-                button.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.green)) // Highlight correct button
+            if (button.text == correctAnswer) {
+                button.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.green)) // Doğru cevabı yeşil yap
             }
         }
     }
 
+    private fun resetOptionColors() {
+        val buttons = listOf(binding.btnOption1, binding.btnOption2, binding.btnOption3, binding.btnOption4)
+        buttons.forEach { button ->
+            button.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.default_option))
+        }
+    }
+
+    private fun enableOptions(enable: Boolean) {
+        val buttons = listOf(binding.btnOption1, binding.btnOption2, binding.btnOption3, binding.btnOption4)
+        buttons.forEach { button ->
+            button.isEnabled = enable
+        }
+    }
     private fun navigateToResults() {
         val action = QuizFragmentDirections.actionQuizFragmentToResultsFragment(
             viewModel.getCorrectAnswersCount(),
@@ -96,4 +108,20 @@ class QuizFragment : Fragment() {
         )
         findNavController().navigate(action)
     }
+    private fun setupObservers() {
+        viewModel.questions.observe(viewLifecycleOwner) { questions ->
+            if (questions.isNotEmpty()) {
+                setupQuestionView()
+            }
+        }
+
+        viewModel.isQuizFinished.observe(viewLifecycleOwner) { isFinished ->
+            if (isFinished) {
+                navigateToResults()
+            }
+        }
+    }
+
+
+
 }

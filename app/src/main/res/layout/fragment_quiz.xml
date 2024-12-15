@@ -21,9 +21,9 @@
             android:id="@+id/tvQuestion"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="120dp"
-            android:textSize="30sp"
-            android:textStyle="bold"
+            android:layout_marginTop="176dp"
+            android:text="@{viewModel.currentQuestion.text}"
+            android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -33,10 +33,12 @@
             android:id="@+id/btnOption1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="148dp"
+            android:layout_marginTop="84dp"
+            android:text="@{viewModel.currentQuestion.options[0]}"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
+
             app:layout_constraintTop_toBottomOf="@id/tvQuestion" />
 
         <Button
@@ -45,6 +47,8 @@
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/btnOption1"
             app:layout_constraintStart_toStartOf="parent"
+            android:text="@{viewModel.currentQuestion.options[1]}"
+
             app:layout_constraintEnd_toEndOf="parent" />
 
         <Button
@@ -53,6 +57,8 @@
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/btnOption2"
             app:layout_constraintStart_toStartOf="parent"
+            android:text="@{viewModel.currentQuestion.options[2]}"
+
             app:layout_constraintEnd_toEndOf="parent" />
 
         <Button
@@ -61,6 +67,8 @@
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/btnOption3"
             app:layout_constraintStart_toStartOf="parent"
+            android:text="@{viewModel.currentQuestion.options[3]}"
+
             app:layout_constraintEnd_toEndOf="parent" />
 
         <!-- Next Butonu -->

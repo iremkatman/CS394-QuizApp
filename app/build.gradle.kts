@@ -2,7 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.androidx.navigation.safe.args)  // Safe Args plugin
-
+    id("kotlin-parcelize")
 }
 
 android {
@@ -68,4 +68,9 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    // Retrofit ve OkHttp
+    implementation(libs.retrofit)                     // Retrofit
+    implementation(libs.retrofit.converter.gson)      // Gson Converter
+    implementation(libs.okhttp.logging.interceptor)
+
 }

@@ -21,4 +21,7 @@
     <color name="unselected_color">#B0BEC5</color>
     <color name="background_color">#FFFFFF</color>
 
+    <color name="default_option">#512DA8</color> <!-- Varsayılan renk -->
+
+
 </resources>

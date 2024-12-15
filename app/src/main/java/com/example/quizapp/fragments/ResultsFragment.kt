@@ -25,8 +25,10 @@ class ResultsFragment : Fragment() {
         binding.tvResult.text = "You answered $correctAnswers out of $totalQuestions correctly!"
 
         binding.btnRestart.setOnClickListener {
-            findNavController().navigate(R.id.action_resultsFragment_to_quizFragment)
-        }
+// ViewModel'i sıfırlayarak QuizFragment'e dön
+            val navController = findNavController()
+            navController.popBackStack(R.id.quizFragment, true) // QuizFragment'i yeniden başlatmak için önce stack'i temizle
+            navController.navigate(R.id.quizFragment)        }
 
         binding.btnHome.setOnClickListener {
             findNavController().navigate(R.id.action_resultsFragment_to_homeFragment)
