@@ -17,6 +17,7 @@ class QuizFragment : Fragment() {
     private lateinit var binding: FragmentQuizBinding
     private val viewModel: QuizViewModel by viewModels()
     private var selectedOption: Button? = null
+    private lateinit var difficulty: String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,27 +27,25 @@ class QuizFragment : Fragment() {
 
         val args = QuizFragmentArgs.fromBundle(requireArguments())
         val categoryId = args.categoryId
-        val difficulty = args.difficulty
+        difficulty = args.difficulty
 
         viewModel.fetchQuestions(5, categoryId, difficulty)
         setupObservers()
 
-        viewModel.questions.observe(viewLifecycleOwner) { questions ->
-            if (questions.isNotEmpty()) {
-                setupQuestionView()
-            }
+        listOf(binding.btnOption1, binding.btnOption2, binding.btnOption3, binding.btnOption4).forEach { button ->
+            button.setOnClickListener { onOptionSelected(button) }
         }
 
-        binding.btnOption1.setOnClickListener { onOptionSelected(binding.btnOption1) }
-        binding.btnOption2.setOnClickListener { onOptionSelected(binding.btnOption2) }
-        binding.btnOption3.setOnClickListener { onOptionSelected(binding.btnOption3) }
-        binding.btnOption4.setOnClickListener { onOptionSelected(binding.btnOption4) }
-
         binding.btnNext.setOnClickListener {
-            viewModel.nextQuestion()
-            resetOptionColors()
-            enableOptions(true)
-            setupQuestionView()
+            if (viewModel.isQuizFinished.value == true) {
+                viewModel.saveScoreToFirestore() // Puanı kaydet
+                navigateToResults()
+            } else {
+                viewModel.nextQuestion()
+                resetOptionColors()
+                enableOptions(true)
+                setupQuestionView()
+            }
         }
 
         return binding.root
@@ -67,7 +66,6 @@ class QuizFragment : Fragment() {
         val correctAnswer = viewModel.getCurrentQuestion()?.correctAnswer
         val isCorrect = option.text == correctAnswer
 
-        // Renk ayarları
         if (isCorrect) {
             option.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.green))
         } else {
@@ -75,32 +73,30 @@ class QuizFragment : Fragment() {
             highlightCorrectAnswer(correctAnswer)
         }
 
-        viewModel.markAnswered(isCorrect)
+        viewModel.markAnswered(isCorrect, difficulty)
         enableOptions(false)
     }
 
     private fun highlightCorrectAnswer(correctAnswer: String?) {
-        val buttons = listOf(binding.btnOption1, binding.btnOption2, binding.btnOption3, binding.btnOption4)
-        buttons.forEach { button ->
+        listOf(binding.btnOption1, binding.btnOption2, binding.btnOption3, binding.btnOption4).forEach { button ->
             if (button.text == correctAnswer) {
-                button.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.green)) // Doğru cevabı yeşil yap
+                button.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.green))
             }
         }
     }
 
     private fun resetOptionColors() {
-        val buttons = listOf(binding.btnOption1, binding.btnOption2, binding.btnOption3, binding.btnOption4)
-        buttons.forEach { button ->
+        listOf(binding.btnOption1, binding.btnOption2, binding.btnOption3, binding.btnOption4).forEach { button ->
             button.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.default_option))
         }
     }
 
     private fun enableOptions(enable: Boolean) {
-        val buttons = listOf(binding.btnOption1, binding.btnOption2, binding.btnOption3, binding.btnOption4)
-        buttons.forEach { button ->
+        listOf(binding.btnOption1, binding.btnOption2, binding.btnOption3, binding.btnOption4).forEach { button ->
             button.isEnabled = enable
         }
     }
+
     private fun navigateToResults() {
         val action = QuizFragmentDirections.actionQuizFragmentToResultsFragment(
             viewModel.getCorrectAnswersCount(),
@@ -108,6 +104,7 @@ class QuizFragment : Fragment() {
         )
         findNavController().navigate(action)
     }
+
     private fun setupObservers() {
         viewModel.questions.observe(viewLifecycleOwner) { questions ->
             if (questions.isNotEmpty()) {
@@ -117,11 +114,9 @@ class QuizFragment : Fragment() {
 
         viewModel.isQuizFinished.observe(viewLifecycleOwner) { isFinished ->
             if (isFinished) {
+                viewModel.saveScoreToFirestore() // Puan kaydı
                 navigateToResults()
             }
         }
     }
-
-
-
 }

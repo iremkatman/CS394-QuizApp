@@ -15,32 +15,44 @@ import com.example.quizapp.viewmodels.LoginViewModel
 
 class LoginFragment : Fragment() {
 
-    private lateinit var binding: FragmentLoginBinding
+    private var _binding: FragmentLoginBinding? = null
+    private val binding get() = _binding!!
     private val viewModel: LoginViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentLoginBinding.inflate(inflater, container, false)
+        _binding = FragmentLoginBinding.inflate(inflater, container, false)
         binding.viewModel = viewModel
-        binding.fragment = this
-        binding.lifecycleOwner = this
-
-        // Login işlemini gözlemleme
-        viewModel.loginSuccess.observe(viewLifecycleOwner, Observer { success ->
-            if (success) {
-                val action = LoginFragmentDirections.actionLoginFragmentToHomeFragment(viewModel.nickname.value!!)
-                findNavController().navigate(action)
-            } else {
-                Toast.makeText(requireContext(), "Invalid login credentials!", Toast.LENGTH_SHORT).show()
-            }
-        })
-
+        binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
     }
 
-    fun navigateToRegister() {
-        findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        // Login Success Observer
+        viewModel.loginSuccess.observe(viewLifecycleOwner, Observer { success ->
+            if (success) {
+                Toast.makeText(requireContext(), "Login Successful!", Toast.LENGTH_SHORT).show()
+                findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
+            }
+        })
+
+        // Login Error Observer
+        viewModel.loginError.observe(viewLifecycleOwner, Observer { errorMessage ->
+            Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show()
+        })
+
+        // Register Link Click Listener
+        binding.registerLink.setOnClickListener {
+            findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

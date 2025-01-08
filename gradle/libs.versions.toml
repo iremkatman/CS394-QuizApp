@@ -13,6 +13,8 @@ navigation = "2.8.3"
 lifecycle = "2.6.0"
 retrofit = "2.9.0"
 okhttp = "4.9.3"
+firebaseFirestoreKtx = "25.1.1"
+firebaseAuthKtx = "23.1.0"
 # Replace with the latest stable version
 
 [libraries]
@@ -38,6 +40,8 @@ okhttp-logging-interceptor = { group = "com.squareup.okhttp3", name = "logging-i
 navigation-fragment-ktx = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "navigation" }
 navigation-ui-ktx = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "navigation" }
 navigation-safe-args = { group = "androidx.navigation", name = "navigation-safe-args-gradle-plugin", version.ref = "navigation" }
+firebase-firestore-ktx = { group = "com.google.firebase", name = "firebase-firestore-ktx", version.ref = "firebaseFirestoreKtx" }
+firebase-auth-ktx = { group = "com.google.firebase", name = "firebase-auth-ktx", version.ref = "firebaseAuthKtx" }
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }

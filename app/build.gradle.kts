@@ -1,9 +1,11 @@
 plugins {
-    alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.androidx.navigation.safe.args)  // Safe Args plugin
-    id("kotlin-parcelize")
+    id("com.android.application")         // Android Application Plugin
+    alias(libs.plugins.kotlin.android)                 // Kotlin Android Plugin
+    alias(libs.plugins.androidx.navigation.safe.args)  // Safe Args Plugin
+    id("kotlin-parcelize")                              // Parcelize Plugin
+    id("com.google.gms.google-services")               // Firebase Google Services Plugin
 }
+
 
 android {
     namespace = "com.example.quizapp"
@@ -62,7 +64,9 @@ dependencies {
     // Lifecycle bağımlılıkları
     implementation(libs.androidx.lifecycle.livedata.ktx)   // LiveData
     implementation(libs.androidx.lifecycle.viewmodel.ktx) // ViewModel
-    implementation(libs.androidx.lifecycle.runtime.ktx)   // Lifecycle-aware bileşenler
+    implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.firebase.firestore.ktx)
+    implementation(libs.firebase.auth.ktx)   // Lifecycle-aware bileşenler
 
     // Test ve Android Test bağımlılıkları
     testImplementation(libs.junit)
@@ -72,5 +76,19 @@ dependencies {
     implementation(libs.retrofit)                     // Retrofit
     implementation(libs.retrofit.converter.gson)      // Gson Converter
     implementation(libs.okhttp.logging.interceptor)
+
+
+    // Firebase
+    implementation(platform("com.google.firebase:firebase-bom:33.7.0")) // Firebase BOM
+    implementation("com.google.firebase:firebase-auth-ktx")
+    implementation("com.google.firebase:firebase-analytics")// Authentication
+    implementation("com.google.firebase:firebase-firestore-ktx") // Firestore
+
+
+
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.androidx.espresso.core)
+
 
 }

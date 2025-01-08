@@ -7,9 +7,12 @@ import com.example.quizapp.models.Question
 import com.example.quizapp.network.ApiResponse
 import com.example.quizapp.network.RetrofitClient
 import com.example.quizapp.network.QuizApi
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+
 class QuizViewModel : ViewModel() {
 
     private val _questions = MutableLiveData<List<Question>>()
@@ -25,7 +28,10 @@ class QuizViewModel : ViewModel() {
     val isQuizFinished: LiveData<Boolean> get() = _isQuizFinished
 
     private var correctAnswersCount = 0
+    private val firestore = FirebaseFirestore.getInstance()
+    private val firebaseAuth = FirebaseAuth.getInstance()
 
+    // Quiz sorularını çekmek için
     fun fetchQuestions(amount: Int, categoryId: Int, difficulty: String) {
         val api = RetrofitClient.instance.create(QuizApi::class.java)
         api.getQuestions(amount, categoryId, difficulty).enqueue(object : Callback<ApiResponse> {
@@ -37,6 +43,7 @@ class QuizViewModel : ViewModel() {
             }
 
             override fun onFailure(call: Call<ApiResponse>, t: Throwable) {
+                println("Failed to fetch questions: ${t.message}")
             }
         })
     }
@@ -56,17 +63,79 @@ class QuizViewModel : ViewModel() {
         }
     }
 
-    fun markAnswered(isCorrect: Boolean) {
-        if (isCorrect) correctAnswersCount++
+    fun markAnswered(isCorrect: Boolean, difficulty: String) {
+        if (isCorrect) {
+            correctAnswersCount += when (difficulty) {
+                "easy" -> 10
+                "medium" -> 20
+                "hard" -> 30
+                else -> 0
+            }
+        }
         _isAnswered.value = true
     }
 
     fun getCorrectAnswersCount(): Int = correctAnswersCount
     fun getTotalQuestionsCount(): Int = _questions.value?.size ?: 0
-    fun reset() {
-        _questions.value = emptyList()
-        _currentQuestionIndex.value = 0
-        _isQuizFinished.value = false
-        correctAnswersCount = 0
+
+
+
+
+
+
+
+
+
+    fun saveScoreToFirestore() {
+        val userId = firebaseAuth.currentUser?.uid
+        val nickname = firebaseAuth.currentUser?.email?.substringBefore("@") ?: "Guest"
+        val currentGameScore = correctAnswersCount // Bu oyun için doğru cevap sayısı
+
+        if (userId != null) {
+            val userDocRef = firestore.collection("Leaderboard").document(userId)
+
+            // Firestore'dan mevcut toplam skoru al
+            userDocRef.get().addOnSuccessListener { document ->
+                if (document.exists()) {
+                    // Mevcut toplam skor varsa, ona ekleme yap
+                    val previousTotalScore = document.getLong("totalScore") ?: 0L
+                    val updatedScore = previousTotalScore + currentGameScore
+
+                    // Güncellenmiş skoru kaydet
+                    val userScore = hashMapOf(
+                        "nickname" to nickname,
+                        "totalScore" to updatedScore,
+                        "userId" to userId
+                    )
+
+                    userDocRef.set(userScore)
+                        .addOnSuccessListener {
+                            println("Score updated successfully!")
+                        }
+                        .addOnFailureListener { exception ->
+                            println("Error updating score: ${exception.message}")
+                        }
+                } else {
+                    // Kullanıcı yoksa yeni bir belge oluştur
+                    val userScore = hashMapOf(
+                        "nickname" to nickname,
+                        "totalScore" to currentGameScore,
+                        "userId" to userId
+                    )
+
+                    userDocRef.set(userScore)
+                        .addOnSuccessListener {
+                            println("New user score saved successfully!")
+                        }
+                        .addOnFailureListener { exception ->
+                            println("Error saving new user score: ${exception.message}")
+                        }
+                }
+            }.addOnFailureListener { exception ->
+                println("Error retrieving user document: ${exception.message}")
+            }
+        } else {
+            println("Error: User ID is null")
+        }
     }
 }
