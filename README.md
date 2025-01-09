@@ -20,11 +20,10 @@ With its clean, modern UI following **Material Design principles** and robust ba
 
 ### User Management
 - **Login/Registration**: Users can create accounts and securely log in using Firebase Authentication.
-- **Persistent Sessions**: Sessions are maintained, ensuring a seamless experience.
 
 ### Advanced UI
 - **Material Design Implementation**: Consistent, modern, and adaptive UI components, including RecyclerView with CardView.
-- ** Animations**: Transitions between fragments and animations enhance user experience.
+- **Animations** : Transitions between fragments and animations enhance user experience.
 
 ---
 
