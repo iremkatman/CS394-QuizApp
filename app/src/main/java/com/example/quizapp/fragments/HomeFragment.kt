@@ -35,6 +35,7 @@ class HomeFragment : Fragment() {
         // Kullanıcı adı ve puanları göster
         displayUserNickname()
         fetchTotalScore()
+        fetchUserRanking() // Kullanıcının sıralamasını getir
 
         // RecyclerView ve Toggle Button yapılandırmaları
         setupRecyclerView()
@@ -124,10 +125,17 @@ class HomeFragment : Fragment() {
     }
 
     private fun fetchTotalScore() {
+        // ProgressBar'ı göster
+        binding.progressBarTotalScore.visibility = View.VISIBLE
+        binding.tvPointsValue.visibility = View.GONE // TextView'i gizle
+
         val userId = firebaseAuth.currentUser?.uid
         if (userId != null) {
             val userDocRef = firestore.collection("Leaderboard").document(userId)
             userDocRef.get().addOnSuccessListener { document ->
+                binding.progressBarTotalScore.visibility = View.GONE // ProgressBar'ı gizle
+                binding.tvPointsValue.visibility = View.VISIBLE // TextView'i göster
+
                 if (document.exists()) {
                     val totalScore = document.getLong("totalScore") ?: 0L
                     binding.tvPointsValue.text = totalScore.toString()
@@ -135,10 +143,49 @@ class HomeFragment : Fragment() {
                     binding.tvPointsValue.text = "0"
                 }
             }.addOnFailureListener {
-                binding.tvPointsValue.text = "0"
+                binding.progressBarTotalScore.visibility = View.GONE // Hata durumunda ProgressBar'ı gizle
+                binding.tvPointsValue.visibility = View.VISIBLE
+                binding.tvPointsValue.text = "Error"
             }
         } else {
-            binding.tvPointsValue.text = "0"
+            binding.progressBarTotalScore.visibility = View.GONE // Kullanıcı oturum açmamışsa ProgressBar'ı gizle
+            binding.tvPointsValue.visibility = View.VISIBLE
+            binding.tvPointsValue.text = "N/A"
         }
     }
+
+
+    private fun fetchUserRanking() {
+        val userId = firebaseAuth.currentUser?.uid
+        if (userId != null) {
+            // ProgressBar'ı görünür yap
+            binding.progressBarRank.visibility = View.VISIBLE
+            binding.tvRankingValue.visibility = View.INVISIBLE
+
+            firestore.collection("Leaderboard")
+                .orderBy("totalScore", com.google.firebase.firestore.Query.Direction.DESCENDING)
+                .get()
+                .addOnSuccessListener { result ->
+                    binding.progressBarRank.visibility = View.GONE // ProgressBar'ı gizle
+                    binding.tvRankingValue.visibility = View.VISIBLE // TextView'i görünür yap
+
+                    val userList = result.documents
+                    val rank = userList.indexOfFirst { it.getString("userId") == userId } + 1
+                    binding.tvRankingValue.text = if (rank > 0) rank.toString() else "N/A"
+                }
+                .addOnFailureListener {
+                    binding.progressBarRank.visibility = View.GONE // ProgressBar'ı gizle
+                    binding.tvRankingValue.visibility = View.VISIBLE // TextView'i görünür yap
+
+                    binding.tvRankingValue.text = "N/A" // Hata durumunda varsayılan değer
+                }
+        } else {
+            // Kullanıcı oturum açmamışsa ProgressBar'ı gizle ve varsayılan değeri göster
+            binding.progressBarRank.visibility = View.GONE
+            binding.tvRankingValue.visibility = View.VISIBLE
+            binding.tvRankingValue.text = "N/A"
+        }
+    }
+
+
 }

@@ -81,6 +81,15 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
+                    <ProgressBar
+                        android:id="@+id/progressBarRank"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginTop="8dp"
+                        android:visibility="gone"
+                        app:layout_constraintStart_toStartOf="@id/tvRankingLabel"
+                        app:layout_constraintTop_toBottomOf="@id/tvRankingLabel" />
+
                     <TextView
                         android:id="@+id/tvRankingValue"
                         android:layout_width="wrap_content"
@@ -89,8 +98,9 @@
                         android:textColor="@color/deepPurple"
                         android:textSize="18sp"
                         android:textStyle="bold"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/tvRankingLabel" />
+                        app:layout_constraintStart_toStartOf="@id/tvRankingLabel"
+                        app:layout_constraintTop_toBottomOf="@id/progressBarRank"
+                        android:layout_marginTop="8dp" />
 
                     <TextView
                         android:id="@+id/tvPointsLabel"
@@ -101,6 +111,15 @@
                         android:textSize="14sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
+
+                    <ProgressBar
+                        android:id="@+id/progressBarTotalScore"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginTop="20dp"
+                        android:visibility="gone"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/tvPointsLabel" />
 
                     <TextView
                         android:id="@+id/tvPointsValue"
@@ -142,7 +161,6 @@
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:src="@drawable/ic_list_view"
                     android:contentDescription="@string/list_view" />
-
             </LinearLayout>
 
             <!-- Kategori başlığı -->
@@ -174,14 +192,15 @@
             <com.google.android.material.bottomnavigation.BottomNavigationView
                 android:id="@+id/bottomNavigationView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:menu="@menu/bottom_navigation"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_height="80dp"
                 android:elevation="8dp"
                 app:itemIconTint="@null"
-                app:labelVisibilityMode="unlabeled" />
+                app:labelVisibilityMode="unlabeled"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/rvCategories"
+                app:menu="@menu/bottom_navigation" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
