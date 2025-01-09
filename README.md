@@ -1,6 +1,5 @@
 # Quiz App
 
-## Project Title
 **Quiz App** - A dynamic, category-based trivia application.
 
 ---
@@ -35,7 +34,6 @@ With its clean, modern UI following **Material Design principles** and robust ba
 - **Firebase**: User authentication and secure data storage.
 - **Advanced RecyclerView**: Uses ListAdapter with DiffUtil for efficient and smooth list updates.
 - **Material Design**: UI components styled with rounded corners, shadows, and modern animations.
-![image](https://github.com/user-attachments/assets/7f184519-872f-48d6-ba96-92f43d1d8023)
 
 ---
 
@@ -67,6 +65,9 @@ With its clean, modern UI following **Material Design principles** and robust ba
 | **Can Önder**     | Firebase Authentication, Login/Register Flow |
 | **Ayberk Ceylan**     | Advanced RecyclerView, Category Adapter     |
 | **Ceren Ayverdi**     | Leaderboard, Animations, Results Fragment   |
+![image](https://github.com/user-attachments/assets/7f184519-872f-48d6-ba96-92f43d1d8023)
+![image](https://github.com/user-attachments/assets/a59f47d2-2428-4c29-bb91-826e6e649de3)
+![image](https://github.com/user-attachments/assets/7e44379e-024c-41e2-875f-28c0602a4252)
 
 ---
 
