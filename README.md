@@ -1,11 +1,6 @@
-# Quiz App
+# Quiz App - Setup and Installation Guide
 
-**Quiz App** - A dynamic, category-based trivia application.
-
----
-
-## Project Description
-The Quiz App is an interactive trivia platform that allows users to test their knowledge across a wide range of categories, including Sports, Math, History, and more. The app integrates the **Trivia API** for real-time question fetching, ensuring updated content for every quiz attempt. It also incorporates **Firebase** for secure user authentication, global leaderboard rankings, and persistent user data.
+The **Quiz App** is an interactive trivia platform that allows users to test their knowledge across a wide range of categories, including Sports, Math, History, and more. The app integrates the **Trivia API** for real-time question fetching, ensuring updated content for every quiz attempt. It also incorporates **Firebase** for secure user authentication, global leaderboard rankings, and persistent user data.
 
 With its clean, modern UI following **Material Design principles** and robust backend integration, the Quiz App provides a smooth and engaging experience. From selecting difficulty levels to answering questions and reviewing results, users can immerse themselves in a competitive and educational environment.
 
@@ -23,7 +18,7 @@ With its clean, modern UI following **Material Design principles** and robust ba
 
 ### Advanced UI
 - **Material Design Implementation**: Consistent, modern, and adaptive UI components, including RecyclerView with CardView.
-- **Animations** : Transitions between fragments and animations enhance user experience.
+- **Animations**: Transitions between fragments and animations enhance user experience.
 
 ---
 
@@ -36,11 +31,8 @@ With its clean, modern UI following **Material Design principles** and robust ba
 
 ---
 
-## Steps to Set Up and Run the Project
-
-The **Quiz App** is a dynamic, category-based trivia application, integrating real-time question fetching via the **Trivia API** and user management with **Firebase**. Follow these steps to set up and run the project locally.
-
 ## Repository Link
+
 Clone the project from the GitHub repository:  
 [Quiz App GitHub Repository](https://github.com/iremkatman/CS394-QuizApp.git)
 
@@ -48,26 +40,32 @@ Clone the project from the GitHub repository:
 
 ## Steps to Set Up and Run the Project
 
-### Clone the Repository
+### 1. Clone the Repository
 ```bash
 git clone https://github.com/iremkatman/CS394-QuizApp.git
 cd CS394-QuizApp
+```
 
-### 1. Set Up Firebase
-- Create a project in the [Firebase Console](https://console.firebase.google.com/).
-- Add an Android app to the Firebase project.
-- Download the `google-services.json` file and place it in the `app/` directory.
+### 2. Set Up Firebase
+1. Go to the [Firebase Console](https://console.firebase.google.com/).
+2. Create a new Firebase project or use an existing one.
+3. Add an Android app to the Firebase project:
+   - Register your app using the package name (found in the `app/build.gradle` file).
+   - Download the `google-services.json` file provided by Firebase.
+4. Place the `google-services.json` file in the `app/` directory of your project.
+5. Enable **Email/Password Authentication** in the Firebase Authentication section.
 
-### 2. Configure Trivia API
-- Sign up and obtain an API key from the [Trivia API](https://triviaapi.com).
-- Add the API key to a secure file or constants file in your project.
+### 3. Configure Trivia API
+1. Sign up and obtain an API key from the [Trivia API](https://triviaapi.com).
+2. Add the API key to a secure location in the project (e.g., a constants file).
 
-### 3. Open in Android Studio
-- Open the project in Android Studio.
-- Sync Gradle files.
+### 4. Open in Android Studio
+1. Open the project folder in [Android Studio](https://developer.android.com/studio).
+2. Allow Android Studio to sync the Gradle files automatically.
 
-### 4. Build and Run
-- Build the project and run it on an emulator or physical device.
+### 5. Build and Run
+1. Connect a physical device or set up an emulator in Android Studio.
+2. Click on **Run** or use the `Shift + F10` shortcut to build and deploy the app.
 
 ---
 
@@ -79,11 +77,5 @@ cd CS394-QuizApp
 | **Can Önder**     | Firebase Authentication, Login/Register Flow |
 | **Ayberk Ceylan**     | Advanced RecyclerView, Category Adapter     |
 | **Ceren Ayverdi**     | Leaderboard, Animations, Results Fragment   |
-![image](https://github.com/user-attachments/assets/7f184519-872f-48d6-ba96-92f43d1d8023)
-![image](https://github.com/user-attachments/assets/a59f47d2-2428-4c29-bb91-826e6e649de3)
-![image](https://github.com/user-attachments/assets/a3da12d6-5e0b-465e-a03d-6df3d02ca8e3)
 
 ---
-
-
-
