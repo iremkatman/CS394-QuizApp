@@ -63,15 +63,12 @@ With its clean, modern UI following **Material Design principles** and robust ba
 
 | Team Member      | Contribution                                |
 |------------------|--------------------------------------------|
-| **Member 1**     | Trivia API Integration, Quiz Fragment       |
-| **Member 2**     | Firebase Authentication, Login/Register Flow |
-| **Member 3**     | Advanced RecyclerView, Category Adapter     |
-| **Member 4**     | Leaderboard, Animations, Results Fragment   |
+| **İrem Katman**     | Trivia API Integration, Quiz Fragment       |
+| **Can Önder**     | Firebase Authentication, Login/Register Flow |
+| **Ayberk Ceylan**     | Advanced RecyclerView, Category Adapter     |
+| **Ceren Ayverdi**     | Leaderboard, Animations, Results Fragment   |
 
 ---
 
 
 
----
-
-This README provides a comprehensive overview of the Quiz App, including setup instructions, features, and team contributions. Add this file as `README.md` to your GitHub repository for a polished and professional presentation.
