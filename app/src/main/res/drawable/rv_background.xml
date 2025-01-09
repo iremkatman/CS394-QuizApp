@@ -1,0 +1,11 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="@color/white" /> <!-- RecyclerView arka plan rengi -->
+    <corners
+        android:topLeftRadius="0dp"
+        android:topRightRadius="0dp"
+        android:bottomLeftRadius="32dp"
+        android:bottomRightRadius="32dp" /> <!-- Alt köşelerde dışbükey yuvarlaklık -->
+    <stroke
+        android:width="1dp"
+        android:color="@color/lightPurple" /> <!-- İsteğe bağlı kenar çerçevesi -->
+</shape>
