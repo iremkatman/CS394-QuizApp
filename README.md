@@ -73,9 +73,9 @@ cd CS394-QuizApp
 
 | Team Member      | Contribution                                |
 |------------------|--------------------------------------------|
-| **İrem Katman**     | Trivia API Integration, Quiz Fragment       |
-| **Can Önder**     | Firebase Authentication, Login/Register Flow |
-| **Ayberk Ceylan**     | Advanced RecyclerView, Category Adapter     |
-| **Ceren Ayverdi**     | Leaderboard, Animations, Results Fragment   |
+| **İrem Katman**     | Trivia API Integration, Quiz Fragment, Material Design CardView        |
+| **Can Önder**     | Firebase Authentication, Login/Register Flow,Animations  |
+| **Ayberk Ceylan**     | Advanced RecyclerView, Category Adapter,Firebase Authentication     |
+| **Ceren Ayverdi**     | Leaderboard, Animations, Results Fragment, Material Design CardView    |
 
 ---
