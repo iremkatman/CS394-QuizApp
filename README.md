@@ -38,6 +38,21 @@ With its clean, modern UI following **Material Design principles** and robust ba
 
 ## Steps to Set Up and Run the Project
 
+The **Quiz App** is a dynamic, category-based trivia application, integrating real-time question fetching via the **Trivia API** and user management with **Firebase**. Follow these steps to set up and run the project locally.
+
+## Repository Link
+Clone the project from the GitHub repository:  
+[Quiz App GitHub Repository](https://github.com/iremkatman/CS394-QuizApp.git)
+
+---
+
+## Steps to Set Up and Run the Project
+
+### Clone the Repository
+```bash
+git clone https://github.com/iremkatman/CS394-QuizApp.git
+cd CS394-QuizApp
+
 ### 1. Set Up Firebase
 - Create a project in the [Firebase Console](https://console.firebase.google.com/).
 - Add an Android app to the Firebase project.
