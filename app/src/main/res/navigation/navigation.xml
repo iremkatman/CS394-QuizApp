@@ -18,6 +18,11 @@
             app:destination="@id/registerFragment" />
     </fragment>
 
+
+
+
+
+
     <!-- Register Fragment -->
     <fragment
         android:id="@+id/registerFragment"
@@ -129,6 +134,10 @@
         <action
             android:id="@+id/action_resultsFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
+
+        <action
+            android:id="@+id/action_resultsFragment_to_leaderboardFragment"
+            app:destination="@id/leaderboardFragment" />
 
     </fragment>
 

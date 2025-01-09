@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.quizapp.R
 import com.example.quizapp.adapters.CategoryAdapter
@@ -18,36 +19,58 @@ import com.google.firebase.firestore.FirebaseFirestore
 
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
-    private lateinit var categoryAdapter: CategoryAdapter // Adapter burada tanımlı
+    private lateinit var categoryAdapter: CategoryAdapter
     private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var firestore: FirebaseFirestore
+    private var isGrid = true // Varsayılan olarak Grid görünümü
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
-        firebaseAuth = FirebaseAuth.getInstance() // FirebaseAuth başlatma
-        firestore = FirebaseFirestore.getInstance() // Firestore başlatma
+        firebaseAuth = FirebaseAuth.getInstance()
+        firestore = FirebaseFirestore.getInstance()
 
         // Kullanıcı adı ve puanları göster
         displayUserNickname()
         fetchTotalScore()
 
-        // Adapter'i oluştur
+        // RecyclerView ve Toggle Button yapılandırmaları
+        setupRecyclerView()
+        setupToggleViewButton()
+
+        // BottomNavigationView yapılandırması
+        val bottomNavigationView = binding.root.findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+        val navController = findNavController()
+        bottomNavigationView.setupWithNavController(navController)
+
+        // Profil resmine tıklama
+        binding.ivProfileImage.setOnClickListener {
+            findNavController().navigate(R.id.profileFragment)
+        }
+
+        return binding.root
+    }
+
+    private fun setupRecyclerView() {
+        // RecyclerView düzenini isGrid değerine göre ayarla
+        binding.rvCategories.layoutManager = if (isGrid) {
+            GridLayoutManager(requireContext(), 2) // Grid düzeni
+        } else {
+            LinearLayoutManager(requireContext()) // Liste düzeni
+        }
+
+        // Adapteri bağla
         categoryAdapter = CategoryAdapter { category ->
             val action = HomeFragmentDirections.actionHomeFragmentToCategoryDetailFragment(
-                category.id,
-                category.name
+                category.id, category.name
             )
             findNavController().navigate(action)
         }
-
-        // RecyclerView yapılandırması
-        binding.rvCategories.layoutManager = LinearLayoutManager(requireContext())
         binding.rvCategories.adapter = categoryAdapter
 
-        // Listeyi adapter'e gönder
+        // Kategori listesi
         val categoryList = listOf(
             Category(21, "Sports", 10, R.drawable.img_2),
             Category(19, "Math", 40, R.drawable.img_5),
@@ -63,35 +86,43 @@ class HomeFragment : Fragment() {
             Category(11, "Chemistry", 29, R.drawable.img_15)
         )
         categoryAdapter.submitList(categoryList)
+    }
 
-        // BottomNavigationView yapılandırması
-        val bottomNavigationView = binding.root.findViewById<BottomNavigationView>(R.id.bottomNavigationView)
-        val navController = findNavController()
-        bottomNavigationView.setupWithNavController(navController)
-
-        // Profil resmine tıklama
-        binding.ivProfileImage.setOnClickListener {
-            findNavController().navigate(R.id.profileFragment)
+    private fun setupToggleViewButton() {
+        // Grid görünüm butonu
+        binding.btnGridView.setOnClickListener {
+            isGrid = true
+            setupRecyclerView()
         }
 
-        return binding.root
+        // Liste görünüm butonu
+        binding.btnListView.setOnClickListener {
+            isGrid = false
+            setupRecyclerView()
+        }
     }
 
     private fun displayUserNickname() {
         val currentUser = firebaseAuth.currentUser
-        if (currentUser != null) {
-            val email = currentUser.email
-            val nickname = email?.substringBefore("@") ?: "Guest" // '@' öncesini al
-            binding.tvWelcome.text = "Hi, $nickname" // Kullanıcı adını TextView'e yaz
+        val userId = currentUser?.uid
+
+        if (userId != null) {
+            val userDocRef = firestore.collection("Users").document(userId)
+            userDocRef.get().addOnSuccessListener { document ->
+                if (document.exists()) {
+                    val nickname = document.getString("nickname") ?: "Guest"
+                    binding.tvWelcome.text = "Hi, $nickname"
+                } else {
+                    binding.tvWelcome.text = "Hi, Guest"
+                }
+            }.addOnFailureListener {
+                binding.tvWelcome.text = "Hi, Guest"
+            }
         } else {
-            binding.tvWelcome.text = "Hi, Guest" // Kullanıcı oturum açmamışsa varsayılan mesaj
+            binding.tvWelcome.text = "Hi, Guest"
         }
     }
 
-
-
-
-    //Total puanı anasayfada yazdırma
     private fun fetchTotalScore() {
         val userId = firebaseAuth.currentUser?.uid
         if (userId != null) {
@@ -99,15 +130,15 @@ class HomeFragment : Fragment() {
             userDocRef.get().addOnSuccessListener { document ->
                 if (document.exists()) {
                     val totalScore = document.getLong("totalScore") ?: 0L
-                    binding.tvPointsValue.text = totalScore.toString() // Total Score'u TextView'e yaz
+                    binding.tvPointsValue.text = totalScore.toString()
                 } else {
-                    binding.tvPointsValue.text = "0" // Varsayılan değer
+                    binding.tvPointsValue.text = "0"
                 }
             }.addOnFailureListener {
-                binding.tvPointsValue.text = "0" // Hata durumunda varsayılan değer
+                binding.tvPointsValue.text = "0"
             }
         } else {
-            binding.tvPointsValue.text = "0" // Kullanıcı oturum açmamışsa varsayılan değer
+            binding.tvPointsValue.text = "0"
         }
     }
 }

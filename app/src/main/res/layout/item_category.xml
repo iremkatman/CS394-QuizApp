@@ -2,12 +2,14 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         app:cardCornerRadius="16dp"
-        app:cardBackgroundColor="@color/material_dynamic_neutral_variant100">
+        app:cardElevation="8dp"
+        android:clickable="true"
+        android:focusable="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -18,27 +20,24 @@
                 android:id="@+id/ivCategoryIcon"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:src="@drawable/img_2"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginEnd="8dp" />
+                android:layout_marginEnd="16dp"
+                android:src="@drawable/ic_launcher_foreground" />
 
             <TextView
                 android:id="@+id/tvCategoryName"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:layout_marginLeft="12dp"
-                android:text="  Category Name"
-                android:textColor="@color/darkPurple"
-                android:textSize="18dp"
+                android:text="Category Name"
+                android:textSize="18sp"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
+                android:textColor="@android:color/black"
                 app:layout_constraintStart_toEndOf="@id/ivCategoryIcon"
-                app:layout_constraintTop_toTopOf="parent" />
-
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 </layout>

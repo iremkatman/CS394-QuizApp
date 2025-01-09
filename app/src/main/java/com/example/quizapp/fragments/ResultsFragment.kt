@@ -22,14 +22,16 @@ class ResultsFragment : Fragment() {
         val correctAnswers = arguments?.getInt("correctAnswers") ?: 0
         val totalQuestions = arguments?.getInt("totalQuestions") ?: 0
 
-        binding.tvResult.text = "You answered $correctAnswers out of $totalQuestions correctly!"
+        // Sonuç metnini ayarlama
+        binding.tvResult.text = "You earned $correctAnswers  points"
 
+        // "Show Leaderboard" butonu
+        binding.btnRestart.text = "Show Leaderboard"
         binding.btnRestart.setOnClickListener {
-// ViewModel'i sıfırlayarak QuizFragment'e dön
-            val navController = findNavController()
-            navController.popBackStack(R.id.quizFragment, true) // QuizFragment'i yeniden başlatmak için önce stack'i temizle
-            navController.navigate(R.id.quizFragment)        }
+            findNavController().navigate(R.id.action_resultsFragment_to_leaderboardFragment)
+        }
 
+        // "Go to Home" butonu
         binding.btnHome.setOnClickListener {
             findNavController().navigate(R.id.action_resultsFragment_to_homeFragment)
         }

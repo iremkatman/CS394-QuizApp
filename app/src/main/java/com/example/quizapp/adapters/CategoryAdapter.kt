@@ -27,8 +27,10 @@ class CategoryAdapter(
 
     override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
         val category = getItem(position)
-        holder.categoryIcon.setImageResource(category.iconResId)
-        holder.categoryName.text = category.name
+        holder.categoryIcon.setImageResource(category.iconResId) // Kategori simgesi
+        holder.categoryName.text = category.name // Kategori adı
+
+        // CardView tıklama işlemi
         holder.itemView.setOnClickListener { onItemClick(category) }
     }
 
