@@ -67,7 +67,7 @@ With its clean, modern UI following **Material Design principles** and robust ba
 | **Ceren Ayverdi**     | Leaderboard, Animations, Results Fragment   |
 ![image](https://github.com/user-attachments/assets/7f184519-872f-48d6-ba96-92f43d1d8023)
 ![image](https://github.com/user-attachments/assets/a59f47d2-2428-4c29-bb91-826e6e649de3)
-![image](https://github.com/user-attachments/assets/7e44379e-024c-41e2-875f-28c0602a4252)
+![image](https://github.com/user-attachments/assets/a3da12d6-5e0b-465e-a03d-6df3d02ca8e3)
 
 ---
 
